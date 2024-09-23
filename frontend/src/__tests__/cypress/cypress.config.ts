@@ -37,7 +37,7 @@ export default defineConfig({
   viewportWidth: 1920,
   viewportHeight: 1080,
   numTestsKeptInMemory: 1,
-  video: true,
+  video: false,
   screenshotsFolder: `${resultsDir}/screenshots`,
   videosFolder: `${resultsDir}/videos`,
   env: {
