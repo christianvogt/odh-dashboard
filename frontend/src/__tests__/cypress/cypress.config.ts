@@ -7,13 +7,13 @@ import coverage from '@cypress/code-coverage/task';
 import cypressHighResolution from 'cypress-high-resolution';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore no types available
-import { beforeRunHook, afterRunHook } from 'cypress-mochawesome-reporter/lib';
+import { beforeRunHook } from 'cypress-mochawesome-reporter/lib';
 import { mergeFiles } from 'junit-report-merger';
 import { interceptSnapshotFile } from '~/__tests__/cypress/cypress/utils/snapshotUtils';
 import { setup as setupWebsockets } from '~/__tests__/cypress/cypress/support/websockets';
 import { env, cypressEnv, BASE_URL } from '~/__tests__/cypress/cypress/utils/testConfig';
 
-const resultsDir = `${env.CY_RESULTS_DIR || 'results'}/${env.CY_MOCK ? 'mocked' : 'e2e'}`;
+const resultsDir = `${env.CY_RESULTS_DIR || 'runner-results'}/${env.CY_MOCK ? 'mocked' : 'e2e'}`;
 
 export default defineConfig({
   experimentalMemoryManagement: true,
@@ -37,7 +37,7 @@ export default defineConfig({
   viewportWidth: 1920,
   viewportHeight: 1080,
   numTestsKeptInMemory: 1,
-  video: true,
+  video: !env.CY_COVERAGE,
   screenshotsFolder: `${resultsDir}/screenshots`,
   videosFolder: `${resultsDir}/videos`,
   env: {
@@ -127,7 +127,7 @@ export default defineConfig({
 
       on('after:run', async () => {
         // cypress-mochawesome-reporter
-        await afterRunHook();
+        // await afterRunHook();
 
         // merge junit reports into a single report
         const outputFile = path.join(__dirname, resultsDir, 'junit-report.xml');

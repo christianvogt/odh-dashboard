@@ -1,0 +1,15 @@
+{
+  "reporterEnabled": "cypress-mochawesome-reporter, mocha-junit-reporter",
+  "mochaJunitReporterReporterOptions": {
+    "mochaFile": "runner-results/junit/junit-[hash].xml"
+  },
+  "cypressMochawesomeReporterReporterOptions": {
+    "charts": true,
+    "embeddedScreenshots": false,
+    "ignoreVideos": false,
+    "inlineAssets": true,
+    "reportDir": "runner-results",
+    "videoOnFailOnly": true,
+    "cypressParallel": true
+  }
+}

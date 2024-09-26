@@ -1,5 +1,5 @@
 import type WebSocket from 'ws';
-import { WebSocketServer } from 'ws';
+// import { WebSocketServer } from 'ws';
 
 /* eslint-disable @typescript-eslint/no-namespace */
 declare global {
@@ -29,28 +29,30 @@ export const setup = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOpti
   });
 
   if (config.env.MOCK) {
-    const wss = new WebSocketServer({ port: Number(config.env.WS_PORT) });
-    wss.on('connection', function connection(ws, req) {
-      if (req.url) {
-        const { pathname, searchParams } = new URL(req.url, `http://${req.headers.host}`);
-
-        if (!openSockets.has(pathname)) {
-          openSockets.set(pathname, []);
-        }
-
-        openSockets.get(pathname)?.push({ ws, searchParams });
-
-        const close = () => {
-          const items = openSockets.get(pathname);
-          if (items) {
-            const idx = items.findIndex((i) => i.ws === ws);
-            items.splice(idx, 1);
-          }
-        };
-        ws.on('close', close);
-        ws.on('error', close);
-      }
-    });
+    // try {
+    //   const wss = new WebSocketServer({ port: Number(config.env.WS_PORT) });
+    //   wss.on('connection', function connection(ws, req) {
+    //     if (req.url) {
+    //       const { pathname, searchParams } = new URL(req.url, `http://${req.headers.host}`);
+    //       if (!openSockets.has(pathname)) {
+    //         openSockets.set(pathname, []);
+    //       }
+    //       openSockets.get(pathname)?.push({ ws, searchParams });
+    //       const close = () => {
+    //         const items = openSockets.get(pathname);
+    //         if (items) {
+    //           const idx = items.findIndex((i) => i.ws === ws);
+    //           items.splice(idx, 1);
+    //         }
+    //       };
+    //       ws.on('close', close);
+    //       ws.on('error', close);
+    //     }
+    //   });
+    // } catch (e) {
+    //   console.log('websocket server failed to start', e);
+    //   // websocket server failed to start
+    // }
   }
 
   on('task', {
