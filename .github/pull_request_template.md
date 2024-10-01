@@ -6,10 +6,9 @@
 <!--- Describe your changes in detail; the what, the why, any findings, etc -->
 <!--- Include any screenshots of changed UI; Include any gifs if it was a flow / UX change -->
 
-## How Has This Been Tested?
-<!--- Please describe in detail how you tested your changes. -->
-<!--- Include details of your testing environment, and the tests you ran to -->
-<!--- see how your change affects other areas of the code, etc. -->
+## Steps to Test
+<!--- Please describe in detail the steps taken to test your changes. -->
+<!--- Include details of your testing environment and pre-requisite configurations. -->
 
 ## Test Impact
 <!--- What tests have you done to covert implemented functionality -->
@@ -26,7 +25,7 @@ Self checklist (all need to be checked):
 
 If you have UI changes: 
 <!--- You can ignore these if you are doing manifest, backend, internal logic, etc changes; aka non-UI / visual changes -->
-- [ ] Included any necessary screenshots or gifs if it was a UI change.
+- [ ] Included any necessary screenshots or gifs if it was a UI change. Link to mocks or include mock screenshots for comparison.
 - [ ] Included tags to the UX team if it was a UI/UX change.
 
 After the PR is posted & before it merges:
