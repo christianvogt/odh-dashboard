@@ -1,4 +1,4 @@
-import { FastifyRequest } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import httpProxy from '@fastify/http-proxy';
 import { K8sResourceCommon, KubeFastifyInstance, ServiceAddressAnnotation } from '../types';
 import { isK8sStatus, passThroughResource } from '../routes/api/k8s/pass-through';
@@ -14,7 +14,7 @@ export const getParam = <F extends FastifyRequest<any, any>>(req: F, name: strin
 export const setParam = (req: FastifyRequest, name: string, value: string): string =>
   ((req.params as { [key: string]: string })[name] = value);
 
-const notFoundError = (kind: string, name: string, e?: any, overrideMessage?: string) => {
+export const notFoundError = (kind: string, name: string, e?: any, overrideMessage?: string) => {
   const message =
     e instanceof Error
       ? e.message
@@ -26,6 +26,28 @@ const notFoundError = (kind: string, name: string, e?: any, overrideMessage?: st
     `${kind} '${name}' ${overrideMessage || 'not found'}.${message ? ` ${message}` : ''}`,
     404,
   );
+};
+
+export const checkRequestLimitExceeded = (
+  request: FastifyRequest,
+  fastify: KubeFastifyInstance,
+  reply: FastifyReply,
+): boolean => {
+  const limit = fastify.initialConfig.bodyLimit ?? 1024 * 1024;
+  const maxLimitInMiB = (limit / 1024 / 1024).toFixed();
+  const contentLength = Number(request.headers['content-length']);
+  if (contentLength > limit) {
+    reply.header('connection', 'close');
+    reply.send(
+      createCustomError(
+        'Payload Too Large',
+        `Request body is too large; the max limit is ${maxLimitInMiB} MiB`,
+        413,
+      ),
+    );
+    return true;
+  }
+  return false;
 };
 
 export const proxyService =
@@ -60,20 +82,10 @@ export const proxyService =
         getUpstream: (request) => getParam(request, 'upstream'),
       },
       preHandler: (request, reply, done) => {
-        const limit = fastify.initialConfig.bodyLimit ?? 1024 * 1024;
-        const maxLimitInMiB = (limit / 1024 / 1024).toFixed();
-        const contentLength = Number(request.headers['content-length']);
-        if (contentLength > limit) {
-          reply.header('connection', 'close');
-          reply.send(
-            createCustomError(
-              'Payload Too Large',
-              `Request body is too large; the max limit is ${maxLimitInMiB} MiB`,
-              413,
-            ),
-          );
+        if (checkRequestLimitExceeded(request, fastify, reply)) {
           return;
         }
+
         // see `prefix` for named params
         const serviceNamespace =
           typeof service.namespace === 'function' ? service.namespace(fastify) : service.namespace;

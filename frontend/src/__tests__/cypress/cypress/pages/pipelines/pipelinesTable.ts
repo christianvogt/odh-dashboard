@@ -4,6 +4,7 @@ import { buildMockPipelines } from '~/__mocks__/mockPipelinesProxy';
 import { buildMockPipelineVersions } from '~/__mocks__/mockPipelineVersionsProxy';
 import { TableRow } from '~/__tests__/cypress/cypress/pages/components/table';
 import { be } from '~/__tests__/cypress/cypress/utils/should';
+import { Matcher } from '@testing-library/dom';
 
 class PipelinesTableRow extends TableRow {
   findPipelineVersionsTable() {
@@ -165,7 +166,7 @@ class PipelinesTable {
     return this.find().find('thead').findByRole('button', { name });
   }
 
-  getRowById(id: string) {
+  getRowById(id: Matcher) {
     return new PipelinesTableRow(
       () =>
         this.find()

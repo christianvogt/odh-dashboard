@@ -1,3 +1,6 @@
+# module federation
+/@mf-types
+
 # testing
 /coverage
 /jest-coverage

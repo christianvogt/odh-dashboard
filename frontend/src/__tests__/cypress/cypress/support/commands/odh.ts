@@ -95,6 +95,7 @@ declare global {
           options: { path: { name: string } },
           response: OdhResponse,
         ) => Cypress.Chainable<null>) &
+        ((type: 'GET /oauth/sign_out') => Cypress.Chainable<null>) &
         ((
           type: 'GET /api/console-links',
           response: OdhResponse<ConsoleLinkKind[]>,
@@ -757,7 +758,8 @@ declare global {
             path: { serviceName: string; apiVersion: string; modelVersionId: string };
           },
           response: OdhResponse<ModelVersion>,
-        ) => Cypress.Chainable<null>);
+        ) => Cypress.Chainable<null>) &
+        ((type: 'GET /oauth/sign_out') => Cypress.Chainable<null>);
     }
   }
 }

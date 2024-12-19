@@ -1206,6 +1206,13 @@ export type DashboardCommonConfig = {
   disableNIMModelServing: boolean;
 };
 
+export type Plugin = {
+  alias: string;
+  frontendUrl: string;
+  serviceUrl: string;
+  authorize?: boolean;
+};
+
 export type DashboardConfigKind = K8sResourceCommon & {
   spec: {
     dashboardConfig: DashboardCommonConfig;
@@ -1224,6 +1231,7 @@ export type DashboardConfigKind = K8sResourceCommon & {
     };
     templateOrder?: string[];
     templateDisablement?: string[];
+    plugins?: Plugin[];
   };
 };
 

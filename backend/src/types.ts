@@ -11,6 +11,13 @@ export type OperatorStatus = {
   queriedForStatus: boolean;
 };
 
+export type Plugin = {
+  alias: string;
+  frontendUrl: string;
+  serviceUrl: string;
+  authorize?: boolean;
+};
+
 export type DashboardConfig = K8sResourceCommon & {
   spec: {
     dashboardConfig: {
@@ -67,6 +74,7 @@ export type DashboardConfig = K8sResourceCommon & {
     };
     templateOrder?: string[];
     templateDisablement?: string[];
+    plugins?: Plugin[];
   };
 };
 

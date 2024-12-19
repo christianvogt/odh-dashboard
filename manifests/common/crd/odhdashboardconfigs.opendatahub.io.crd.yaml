@@ -22,6 +22,23 @@ spec:
             spec:
               type: object
               properties:
+                plugins:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - alias
+                      - frontendUrl
+                      - serviceUrl
+                    properties:
+                      alias:
+                        type: string
+                      frontendUrl:
+                        type: string
+                      serviceUrl:
+                        type: string
+                      authorize:
+                        type: boolean
                 dashboardConfig:
                   type: object
                   properties:

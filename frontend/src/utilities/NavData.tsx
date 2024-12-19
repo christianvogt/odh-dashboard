@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { navItems, adminNavItems } from '@mf/model-registry/plugin';
 import { SupportedArea, useIsAreaAvailable } from '~/concepts/areas';
 import { useUser } from '~/redux/selectors';
 import {
@@ -8,6 +9,9 @@ import {
   pipelineRunsRootPath,
   pipelinesRootPath,
 } from '~/routes';
+
+// const modelRegistryPlugin = import('@mf/model-registry/plugin');
+// console.log(modelRegistryPlugin);
 
 type NavDataCommon = {
   id: string;
@@ -116,10 +120,16 @@ const useModelServingNav = (): NavDataItem[] =>
     { id: 'modelServing', label: 'Model Serving', href: '/modelServing' },
   ]);
 
+// const useModelRegistrySectionNav = (): NavDataItem[] =>
+//   useAreaCheck(SupportedArea.MODEL_REGISTRY, [
+//     { id: 'modelRegistry', label: 'Model Registry', href: '/modelRegistry' },
+//   ]);
+
 const useModelRegistrySectionNav = (): NavDataItem[] =>
-  useAreaCheck(SupportedArea.MODEL_REGISTRY, [
-    { id: 'modelRegistry', label: 'Model Registry', href: '/modelRegistry' },
-  ]);
+  useAreaCheck(
+    SupportedArea.MODEL_REGISTRY,
+    navItems.map((item, i) => ({ ...item, id: `modelRegistry-${i}` })),
+  );
 
 const useResourcesNav = (): NavDataHref[] => [
   { id: 'resources', label: 'Resources', href: '/resources' },
@@ -170,14 +180,19 @@ const useStorageClassesNav = (): NavDataHref[] =>
     },
   ]);
 
+// const useModelRegisterySettingsNav = (): NavDataHref[] =>
+//   useAreaCheck<NavDataHref>(SupportedArea.MODEL_REGISTRY, [
+//     {
+//       id: 'settings-model-registry',
+//       label: 'Model registry settings',
+//       href: '/modelRegistrySettings',
+//     },
+//   ]);
 const useModelRegisterySettingsNav = (): NavDataHref[] =>
-  useAreaCheck<NavDataHref>(SupportedArea.MODEL_REGISTRY, [
-    {
-      id: 'settings-model-registry',
-      label: 'Model registry settings',
-      href: '/modelRegistrySettings',
-    },
-  ]);
+  useAreaCheck<NavDataHref>(
+    SupportedArea.MODEL_REGISTRY,
+    adminNavItems.map((item, i) => ({ ...item, id: `modelRegistry-${i}` })),
+  );
 
 const useUserManagementNav = (): NavDataHref[] =>
   useAreaCheck<NavDataHref>(SupportedArea.USER_MANAGEMENT, [

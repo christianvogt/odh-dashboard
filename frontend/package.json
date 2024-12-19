@@ -54,6 +54,8 @@
     "cypress:format": "prettier --write src/__tests__/**/*.snap.json"
   },
   "dependencies": {
+    "@module-federation/enhanced": "^0.8.1",
+    "@module-federation/native-federation-typescript": "^0.6.0",
     "@monaco-editor/react": "^4.6.0",
     "@openshift/dynamic-plugin-sdk": "^4.0.0",
     "@openshift/dynamic-plugin-sdk-utils": "^4.0.1",
