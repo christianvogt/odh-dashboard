@@ -236,6 +236,7 @@ module.exports = (env) => {
       extensions: ['.js', '.ts', '.tsx', '.jsx'],
       alias: {
         '~': path.resolve(SRC_DIR),
+        'kubeflow-ui': path.resolve(__dirname, '../node_modules/kubeflow-ui-pf'),
       },
       symlinks: false,
       cacheWithContext: false,

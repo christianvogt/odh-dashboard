@@ -54,7 +54,7 @@ const remoteLoader = (scope: string): Promise<unknown> =>
           script.src = pluginUrl;
           script.onload = onload;
           script.onerror = () => {
-            document.head.removeChild(script);
+            // document.head.removeChild(script);
             reject(new Error(`[${scope}] error loading remote: ${pluginUrl}`));
           };
 

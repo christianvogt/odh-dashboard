@@ -12,7 +12,10 @@ import {
   Stack,
   StackItem,
 } from '@patternfly/react-core';
-import { ModelRegistrySelectorContextProvider } from '@mf/model-registry/plugin';
+import {
+  ModelRegistrySelectorContextProvider,
+  NamespaceSelectorContextProvider,
+} from '@mf/model-registry/plugin';
 import ErrorBoundary from '~/components/error/ErrorBoundary';
 import ToastNotifications from '~/components/ToastNotifications';
 import { useWatchBuildStatus } from '~/utilities/useWatchBuildStatus';
@@ -142,11 +145,14 @@ const App: React.FC = () => {
             <ErrorBoundary>
               <NimContextProvider>
                 <ProjectsContextProvider>
-                  <ModelRegistrySelectorContextProvider apiPrefix="/api/plugin/modelRegistry">
-                    <QuickStarts>
-                      <AppRoutes />
-                    </QuickStarts>
-                  </ModelRegistrySelectorContextProvider>
+                  {/* <ModelRegistrySelectorContextProvider apiPrefix="/model-registry"> */}
+                  <NamespaceSelectorContextProvider>
+                    <ModelRegistrySelectorContextProvider>
+                      <QuickStarts>
+                        <AppRoutes />
+                      </QuickStarts>
+                    </ModelRegistrySelectorContextProvider>
+                  </NamespaceSelectorContextProvider>
                 </ProjectsContextProvider>
               </NimContextProvider>
               <ToastNotifications />

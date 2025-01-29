@@ -20,7 +20,10 @@
     "baseUrl": "./src",
     "paths": {
       "~/*": ["./*"],
-      "@mf/*": ["../@mf-types/@mf/*"]
+      "@mf/*": ["../@mf-types/@mf/*"],
+      "kubeflow-ui": [
+        "../node_modules/kubeflow-ui-pf/node_modules/kubeflow-ui/src/index.ts"
+      ]
     },
     "importHelpers": true,
     "skipLibCheck": true,

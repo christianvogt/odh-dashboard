@@ -35,13 +35,15 @@ const moduleFederationConfig = (isNativeFederationTypeScriptHost = false) => ({
     '@mf/model-registry': 'modelRegistry@http://localhost:9000/remoteEntry.js',
   } : {
     // '@mf/model-registry': 'modelRegistry@http://localhost:9000/remoteEntry.js',
-    '@mf/model-registry': getRemoteLoaderPromise('modelRegistry')
+    // '@mf/model-registry': getRemoteLoaderPromise('modelRegistry')
+    '@mf/model-registry': 'modelRegistry@/api/plugin/modelRegistry/remoteEntry.js',
   },
   shared: {
     react: { singleton: true, eager: true, requiredVersion: deps.react },
     'react-dom': { singleton: true, eager: true, requiredVersion: deps['react-dom'] },
     'react-router': { singleton: true, eager: true, requiredVersion: deps['react-router'] },
     'react-router-dom': { singleton: true, eager: true, requiredVersion: deps['react-router-dom'] },
+    'kubeflow-ui': { singleton: true, eager: true },
     // TODO list all shared dependencies here
   },
   exposes: {

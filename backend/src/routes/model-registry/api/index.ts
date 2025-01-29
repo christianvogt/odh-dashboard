@@ -7,13 +7,13 @@ import { getAccessToken } from '../../../utils/directCallUtils';
 
 // TODO this cannot be hardcoded
 // const pluginsUpstreams: Record<string, undefined | string> = {
-//   modelRegistry: 'http://localhost:9000',
+//   'model-registry': 'http://localhost:9000',
 // };
 
 export default async (fastify: KubeFastifyInstance): Promise<void> =>
   fastify.register(httpProxy, {
     upstream: '',
-    rewritePrefix: '',
+    rewritePrefix: '/api',
     prefix: ':plugin',
     replyOptions: {
       // preHandler must set the `upstream` param
@@ -21,7 +21,6 @@ export default async (fastify: KubeFastifyInstance): Promise<void> =>
     },
     preHandler: (request, reply, done) => {
       (async () => {
-        console.log('PLUGIN REQUEST');
         if (checkRequestLimitExceeded(request, fastify, reply)) {
           return;
         }
@@ -43,10 +42,10 @@ export default async (fastify: KubeFastifyInstance): Promise<void> =>
           const token = getAccessToken(requestOptions);
           request.headers.authorization = `Bearer ${token}`;
         }
-        request.headers['kubeflow-userid'] = 'user@example.com';
 
         const upstream = pluginConfig.serviceUrl;
         setParam(request, 'upstream', upstream);
+        console.log('upstream', upstream);
         fastify.log.info(`Proxy ${request.method} plugin request ${request.url} to ${upstream}`);
         done();
       })();

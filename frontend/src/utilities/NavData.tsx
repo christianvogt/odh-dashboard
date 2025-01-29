@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { navItems, adminNavItems } from '@mf/model-registry/plugin';
 import { SupportedArea, useIsAreaAvailable } from '~/concepts/areas';
 import { useUser } from '~/redux/selectors';
 import {
@@ -9,6 +8,7 @@ import {
   pipelineRunsRootPath,
   pipelinesRootPath,
 } from '~/routes';
+import { navItems, adminNavItems } from '@mf/model-registry/plugin';
 
 // const modelRegistryPlugin = import('@mf/model-registry/plugin');
 // console.log(modelRegistryPlugin);

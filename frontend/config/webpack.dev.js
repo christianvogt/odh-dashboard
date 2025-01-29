@@ -99,6 +99,13 @@ module.exports = smp.wrap(
                 changeOrigin: true,
                 headers,
               },
+              {
+                context: ['/model-registry/api'],
+                target: `https://${dashboardHost}`,
+                secure: false,
+                changeOrigin: true,
+                headers,
+              },
             ];
           } else {
             return [
@@ -110,6 +117,11 @@ module.exports = smp.wrap(
                 context: ['/wss'],
                 target: `ws://0.0.0.0:${BACKEND_PORT}`,
                 ws: true,
+              },
+              {
+                context: ['/model-registry/api'],
+                pathRewrite: { '/model-registry/api': '/api/plugin/model-registry/api' },
+                target: `http://0.0.0.0:${BACKEND_PORT}`,
               },
             ];
           }
