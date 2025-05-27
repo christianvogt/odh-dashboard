@@ -37,6 +37,7 @@ describe('Workbenches - variable tests', () => {
       });
   });
   after(() => {
+    cy.log(`After debug mode - project:`, projectName);
     //Check if the Before Method was executed to perform the setup
     if (!wasSetupPerformed()) return;
 
