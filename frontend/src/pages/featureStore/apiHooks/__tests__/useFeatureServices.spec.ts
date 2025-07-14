@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { testHook } from '#~/__tests__/unit/testUtils/hooks';
+import { testHook } from '@odh-dashboard/jest-config/hooks';
 import { useFeatureStoreAPI } from '#~/pages/featureStore/FeatureStoreContext.tsx';
 import useFeatureServices from '#~/pages/featureStore/apiHooks/useFeatureServices';
 import { mockFeatureService } from '#~/__mocks__/mockFeatureServices';
