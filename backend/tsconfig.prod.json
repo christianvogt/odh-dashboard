@@ -2,9 +2,14 @@
   "extends": "./tsconfig",
   "compilerOptions": {
     "rootDir": "./src",
+    "noEmit": false,
+    "emitDeclarationOnly": false,
+    "allowImportingTsExtensions": false,
+    "outDir": "dist"
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/**.js", "./src/**/*.jsx"],
   "exclude": [
+    "node_modules",
     "src/__tests__/"
   ]
 }
