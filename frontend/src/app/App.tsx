@@ -13,6 +13,7 @@ import {
   Stack,
   StackItem,
 } from '@patternfly/react-core';
+import { AnalyticsController } from '@odh-dashboard/analytics';
 import ErrorBoundary from '#~/components/error/ErrorBoundary';
 import ToastNotifications from '#~/components/ToastNotifications';
 import { useWatchBuildStatus } from '#~/utilities/useWatchBuildStatus';
@@ -191,6 +192,7 @@ const App: React.FC = () => {
               </IntegrationsStatusProvider>
               <ToastNotifications />
               <TelemetrySetup />
+              <AnalyticsController />
             </ErrorBoundary>
           </Page>
         </AccessReviewProvider>

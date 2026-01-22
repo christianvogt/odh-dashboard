@@ -62,6 +62,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@odh-dashboard/analytics": "*",
     "@module-federation/runtime": "^0.15.0",
     "@monaco-editor/react": "^4.6.0",
     "@openshift/dynamic-plugin-sdk": "^5.0.1",
