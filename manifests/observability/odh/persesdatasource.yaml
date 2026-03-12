@@ -1,0 +1,34 @@
+# Before applying this PersesDatasource, create the TLS Secret that Perses
+# uses to verify the proxy's serving certificate:
+#
+#   oc get configmap prom-namespace-auth-proxy-cabundle -n <namespace> \
+#     -o jsonpath='{.data.service-ca\.crt}' \
+#     | oc create secret generic namespace-auth-proxy-datasource-secret \
+#         -n <namespace> --from-file=service-ca.crt=/dev/stdin
+#
+apiVersion: perses.dev/v1alpha1
+kind: PersesDatasource
+metadata:
+  name: namespace-auth-proxy-datasource
+spec:
+  client:
+    tls:
+      caCert:
+        certPath: service-ca.crt
+        name: prom-namespace-auth-proxy-cabundle
+        type: configmap
+      enable: true
+  config:
+    default: false
+    display:
+      description: Cluster Prometheus via prom-namespace-auth-proxy - enforces namespace-scoped access
+      name: Namespace Auth Proxy Prometheus
+    plugin:
+      kind: PrometheusDatasource
+      spec:
+        proxy:
+          kind: HTTPProxy
+          spec:
+            secret: namespace-auth-proxy-datasource-secret
+            # TODO: Replace <namespace> with the namespace where the proxy is deployed.
+            url: https://prom-namespace-auth-proxy.opendatahub.svc.cluster.local:8443
