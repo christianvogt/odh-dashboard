@@ -32,6 +32,7 @@
     "build": "run-p -l build:*",
     "build:backend": "npm run build --prefix backend",
     "build:frontend": "npm run build --prefix frontend",
+    "build:distributions": "turbo run build --filter='./distributions/*'",
     "dev": "run-p -l dev:*",
     "dev:backend": "cd ./backend && npm run start:dev",
     "dev:frontend": "cd ./frontend && npm run start:dev",
